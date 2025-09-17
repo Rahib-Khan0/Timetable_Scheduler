@@ -1,0 +1,58 @@
+{
+  "department_sem": [
+    {"department":"BCA","room_preference":{"lab":["Lab L1"],"classroom":["Room A101"]},"id":1,"sem":1},
+    {"department":"BCA","room_preference":{"lab":["Lab L2"],"classroom":["Room B201"]},"id":2,"sem":3},
+    {"department":"BSc CS","room_preference":{"lab":["Lab L1","Lab L3"],"classroom":["Room A102"]},"id":3,"sem":1},
+    {"department":"BSc CS","room_preference":{"lab":["Lab L3"],"classroom":["Room B201"]},"id":4,"sem":3},
+    {"department":"BBA","room_preference":{"classroom":["Room A101","Room A102"]},"id":5,"sem":1},
+    {"department":"BBA","room_preference":{"classroom":["Room B201"]},"id":6,"sem":2}
+  ],
+  "dep_sem_course": [
+    {"DepSemCourse":{"id":1,"dep_sem_id":1,"course_id":1},"Course":{"course_code":"CS101","course_id":1,"name":"Programming in C"}},
+    {"DepSemCourse":{"id":2,"dep_sem_id":1,"course_id":2},"Course":{"course_code":"CS201","course_id":2,"name":"Data Structures"}},
+    {"DepSemCourse":{"id":3,"dep_sem_id":2,"course_id":3},"Course":{"course_code":"CS301","course_id":3,"name":"Operating Systems"}},
+    {"DepSemCourse":{"id":4,"dep_sem_id":2,"course_id":4},"Course":{"course_code":"CS401","course_id":4,"name":"Computer Networks"}},
+    {"DepSemCourse":{"id":5,"dep_sem_id":3,"course_id":5},"Course":{"course_code":"CS501","course_id":5,"name":"DBMS"}},
+    {"DepSemCourse":{"id":6,"dep_sem_id":3,"course_id":6},"Course":{"course_code":"MATH101","course_id":6,"name":"Mathematics I"}},
+    {"DepSemCourse":{"id":7,"dep_sem_id":4,"course_id":2},"Course":{"course_code":"CS201","course_id":2,"name":"Data Structures"}},
+    {"DepSemCourse":{"id":8,"dep_sem_id":4,"course_id":3},"Course":{"course_code":"CS301","course_id":3,"name":"Operating Systems"}},
+    {"DepSemCourse":{"id":9,"dep_sem_id":5,"course_id":7},"Course":{"course_code":"BBA101","course_id":7,"name":"Business Communication"}},
+    {"DepSemCourse":{"id":10,"dep_sem_id":6,"course_id":8},"Course":{"course_code":"BBA102","course_id":8,"name":"Organizational Behaviour"}}
+  ],
+  "course_components": [
+    {"id":1,"dep_sem_course_id":1,"faculty_code":"FAC101","group_no":1,"component_type":"lecture","weekly_classes":2,"room_type":"classroom"},
+    {"id":2,"dep_sem_course_id":1,"faculty_code":"FAC102","group_no":2,"component_type":"practical","weekly_classes":2,"room_type":"lab"},
+    {"id":3,"dep_sem_course_id":2,"faculty_code":"FAC102","group_no":1,"component_type":"lecture","weekly_classes":3,"room_type":"classroom"},
+    {"id":4,"dep_sem_course_id":3,"faculty_code":"FAC103","group_no":2,"component_type":"practical","weekly_classes":3,"room_type":"lab"},
+    {"id":5,"dep_sem_course_id":4,"faculty_code":"FAC104","group_no":1,"component_type":"lecture","weekly_classes":2,"room_type":"classroom"},
+    {"id":6,"dep_sem_course_id":5,"faculty_code":"FAC105","group_no":1,"component_type":"lecture","weekly_classes":2,"room_type":"classroom"},
+    {"id":7,"dep_sem_course_id":5,"faculty_code":"FAC106","group_no":2,"component_type":"practical","weekly_classes":2,"room_type":"lab"},
+    {"id":8,"dep_sem_course_id":6,"faculty_code":"FAC106","group_no":1,"component_type":"lecture","weekly_classes":3,"room_type":"classroom"},
+    {"id":9,"dep_sem_course_id":7,"faculty_code":"FAC102","group_no":1,"component_type":"lecture","weekly_classes":3,"room_type":"classroom"},
+    {"id":10,"dep_sem_course_id":8,"faculty_code":"FAC103","group_no":2,"component_type":"practical","weekly_classes":3,"room_type":"lab"},
+    {"id":11,"dep_sem_course_id":9,"faculty_code":"FAC106","group_no":1,"component_type":"lecture","weekly_classes":3,"room_type":"classroom"},
+    {"id":12,"dep_sem_course_id":10,"faculty_code":"FAC105","group_no":1,"component_type":"lecture","weekly_classes":3,"room_type":"classroom"}
+  ],
+  "faculty": [
+    {"faculty_code":"FAC101","name":"Dr. A. Kumar","max_per_week":20,"faculty_id":1,"availability":{"1":[1,2,3,4,5,6],"2":[1,2,3,4,5,6],"3":[1,2,3,4,5,6],"4":[1,2,3,4,5,6],"5":[1,2,3,4,5,6]},"max_per_day":4},
+    {"faculty_code":"FAC102","name":"Ms. B. Singh","max_per_week":18,"faculty_id":2,"availability":{"1":[1,2,3,4,5,6],"2":[1,2,3,4,5,6],"3":[1,2,3,4,5,6],"4":[1,2,3,4,5,6],"5":[1,2,3,4,5,6]},"max_per_day":3},
+    {"faculty_code":"FAC103","name":"Mr. C. Patel","max_per_week":15,"faculty_id":3,"availability":{"1":[1,2,3,4,5,6],"2":[1,2,3,4,5,6],"3":[1,2,3,4,5,6],"4":[1,2,3,4,5,6],"5":[1,2,3,4,5,6]},"max_per_day":3},
+    {"faculty_code":"FAC104","name":"Dr. D. Rao","max_per_week":20,"faculty_id":4,"availability":{"1":[1,2,3,4,5,6],"2":[1,2,3,4,5,6],"3":[1,2,3,4,5,6],"4":[1,2,3,4,5,6],"5":[1,2,3,4,5,6]},"max_per_day":4},
+    {"faculty_code":"FAC105","name":"Prof. E. Mehta","max_per_week":22,"faculty_id":5,"availability":{"1":[1,2,3,4,5,6],"2":[1,2,3,4,5,6],"3":[1,2,3,4,5,6],"4":[1,2,3,4,5,6],"5":[1,2,3,4,5,6]},"max_per_day":4},
+    {"faculty_code":"FAC106","name":"Ms. F. Shah","max_per_week":20,"faculty_id":6,"availability":{"1":[1,2,3,4,5,6],"2":[1,2,3,4,5,6],"3":[1,2,3,4,5,6],"4":[1,2,3,4,5,6],"5":[1,2,3,4,5,6]},"max_per_day":4}
+  ],
+  "rooms": [
+    {"name":"Room A101","type":"classroom","availability":{"1":[1,2,3,4,5,6],"2":[1,2,3,4,5,6],"3":[1,2,3,4,5,6],"4":[1,2,3,4,5,6],"5":[1,2,3,4,5,6]},"capacity":60,"room_id":1},
+    {"name":"Room A102","type":"classroom","availability":{"1":[1,2,3,4,5,6],"2":[1,2,3,4,5,6],"3":[1,2,3,4,5,6],"4":[1,2,3,4,5,6],"5":[1,2,3,4,5,6]},"capacity":50,"room_id":2},
+    {"name":"Room B201","type":"classroom","availability":{"1":[1,2,3,4,5,6],"2":[1,2,3,4,5,6],"3":[1,2,3,4,5,6],"4":[1,2,3,4,5,6],"5":[1,2,3,4,5,6]},"capacity":40,"room_id":3},
+    {"name":"Lab L1","type":"lab","availability":{"1":[1,2,3,4,5,6],"2":[1,2,3,4,5,6],"3":[1,2,3,4,5,6],"4":[1,2,3,4,5,6],"5":[1,2,3,4,5,6]},"capacity":30,"room_id":4},
+    {"name":"Lab L2","type":"lab","availability":{"1":[1,2,3,4,5,6],"2":[1,2,3,4,5,6],"3":[1,2,3,4,5,6],"4":[1,2,3,4,5,6],"5":[1,2,3,4,5,6]},"capacity":35,"room_id":5},
+    {"name":"Lab L3","type":"lab","availability":{"1":[1,2,3,4,5,6],"2":[1,2,3,4,5,6],"3":[1,2,3,4,5,6],"4":[1,2,3,4,5,6],"5":[1,2,3,4,5,6]},"capacity":40,"room_id":6}
+  ],
+  "special_classes": [
+    {"faculty_code":"FAC102","special_class_id":1,"day_of_week":1,"dep_sem_id":1,"course_id":1,"room_id":4,"slot":1},
+    {"faculty_code":"FAC103","special_class_id":2,"day_of_week":2,"dep_sem_id":2,"course_id":3,"room_id":5,"slot":3},
+    {"faculty_code":"FAC106","special_class_id":3,"day_of_week":3,"dep_sem_id":3,"course_id":5,"room_id":6,"slot":2},
+    {"faculty_code":"FAC106","special_class_id":4,"day_of_week":4,"dep_sem_id":5,"course_id":7,"room_id":1,"slot":4}
+  ]
+}
