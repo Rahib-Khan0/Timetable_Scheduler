@@ -15,9 +15,9 @@ async def reset_dwarka():
     async with engine.begin() as conn:
         # Drop schema and all tables
         await conn.execute(text('DROP SCHEMA IF EXISTS dwarka CASCADE'))
-        await conn.execute(text('CREATE SCHEMA dwarka'))
-
-        # Recreate tables according to models
-        await conn.run_sync(Base.metadata.create_all, checkfirst=True)
+        # await conn.execute(text('CREATE SCHEMA dwarka'))
+        #
+        # # Recreate tables according to models
+        # await conn.run_sync(Base.metadata.create_all, checkfirst=True)
 
     return {"status": "success", "message": "DWARKA schema reset and tables recreated successfully."}

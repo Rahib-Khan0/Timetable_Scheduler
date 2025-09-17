@@ -8,6 +8,7 @@ from .rooms import Rooms
 from .special_class import SpecialClass
 from .timetable import Timetable
 from .CourseComponent import CourseComponent
+from .user import User
 
 __all__ = [
     "Base",
@@ -20,3 +21,5 @@ __all__ = [
     "SpecialClass",
     "Timetable",
 ]
+
+
