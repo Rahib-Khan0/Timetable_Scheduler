@@ -4,7 +4,7 @@ from db.base import Base  # <-- use the shared Base
 
 class DepartmentSem(Base):
     __tablename__ = "department_sem"
-    __table_args__ = {'schema': 'dwarka'}
+
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     department = Column(String(50), nullable=False)
