@@ -1,17 +1,17 @@
+import os
 from contextlib import asynccontextmanager
+
+from dotenv import load_dotenv
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import text
 from db.base import Base
 
+load_dotenv()
+
 # Example environment-based database URL
-# DATABASE_URL = os.getenv(
-#     "DATABASE_URL",
-#     "postgresql+asyncpg://postgres:postgres@localhost:5432/timetable_db"
-# )
+DATABASE_URL = os.getenv("DATABASE_URL",)
 
-
-DATABASE_URL = "postgresql+asyncpg://postgres:password@localhost:5432/Timetable_Scheduler"
 engine = create_async_engine(DATABASE_URL, echo=True, future=True)
 
 AsyncSessionLocal = sessionmaker(

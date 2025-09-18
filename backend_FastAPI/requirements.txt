@@ -3,6 +3,7 @@ uvicorn
 asyncpg
 sqlalchemy
 psycopg2-binary
+python-dotenv
 ortools
 pydantic
 passlib

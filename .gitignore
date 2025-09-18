@@ -2,3 +2,6 @@ backend_FastAPI/.venv/
 backend_FastAPI/venv/
 backend_FastAPI/.venv/
 backend_FastAPI/.idea/
+__pycache__/
+*.pyc
+*.pyo
