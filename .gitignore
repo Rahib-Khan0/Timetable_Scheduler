@@ -1,7 +1,35 @@
-backend_FastAPI/.venv/
-backend_FastAPI/venv/
-backend_FastAPI/.venv/
-backend_FastAPI/.idea/
+# === Python Bytecode ===
 __pycache__/
 *.pyc
 *.pyo
+
+# === Virtual Environments ===
+.venv/
+venv/
+ENV/
+env/
+backend_FastAPI/.venv/
+backend_FastAPI/venv/
+
+# === IDE / Editor Config ===
+.vscode/
+.idea/
+backend_FastAPI/.idea/
+
+# === Environment Variables / Secrets ===
+.env
+*.env
+
+# === Node / React (Frontend) ===
+node_modules/
+dist/
+build/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# === OS Specific Files ===
+.DS_Store
+Thumbs.db
+desktop.ini
+
