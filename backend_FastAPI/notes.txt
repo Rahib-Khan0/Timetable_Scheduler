@@ -4,3 +4,4 @@ venv\Scripts\activate      # Windows
 
 
 pip freeze > requirements.txt
+
