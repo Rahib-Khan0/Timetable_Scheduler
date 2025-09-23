@@ -1,21 +1,34 @@
-from sqlalchemy import Column, Integer, ForeignKey, CheckConstraint, Boolean
+from sqlalchemy import Column, Integer, ForeignKey, Boolean, Enum, String
+from db.base import Base
 from sqlalchemy.orm import relationship
-from db.base import Base  # <-- use the shared Base
 
 class Timetable(Base):
     __tablename__ = "timetable"
-    # __table_args__ = {'schema': 'dwarka'}  <-- remove this
+      # ← schema-per-institute
 
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    dep_sem_course_id = Column(Integer, ForeignKey("dep_sem_course.id", ondelete="CASCADE"))
-    course_component_id = Column(Integer, ForeignKey("course_component.id", ondelete="CASCADE"))
-    room_id = Column(Integer, ForeignKey("rooms.room_id"))
-    faculty_id = Column(Integer, ForeignKey("faculty.faculty_id"))
-    day_of_week = Column(Integer, CheckConstraint("day_of_week BETWEEN 1 AND 7"), nullable=False)
-    slot = Column(Integer, nullable=False)
-    is_locked = Column(Boolean, default=False)
+    id = Column(Integer, primary_key=True)
 
-    dep_sem_course = relationship("DepSemCourse", back_populates="timetable_entries")
-    course_component = relationship("CourseComponent", back_populates="timetable_entries")
-    room = relationship("Rooms", back_populates="timetable_entries")
-    faculty = relationship("Faculty", back_populates="timetable_entries")
+    day = Column(Integer, nullable=False)   # 0 = Monday, 1 = Tuesday...
+    slot = Column(Integer, nullable=False)  # Slot number (e.g., 1 = 9AM)
+
+    course_component_id = Column(Integer, ForeignKey("course_component.id"), nullable=False)
+    course_id = Column(Integer, ForeignKey("course.course_id"), nullable=False)
+    room_id = Column(Integer, ForeignKey("rooms.room_id"), nullable=False)
+    faculty_id = Column(Integer, ForeignKey("faculty.faculty_id"), nullable=False)
+    dep_sem_id = Column(Integer, ForeignKey("department_sem.id"), nullable=False)
+
+
+    component_type = Column(String, nullable=False)  # "Lecture" or "Lab"
+    group_no = Column(Integer, nullable=False, default=1)
+
+    version_id = Column(Integer, ForeignKey("timetable_version.id"), nullable=False)
+    locked = Column(Boolean, default=False)
+
+    # Relationships (optional but useful)
+    room = relationship("Rooms")
+    faculty = relationship("Faculty")
+    course = relationship("Course")
+    department_sem = relationship("DepartmentSem")
+    version = relationship("TimetableVersion")
+    course_component = relationship("CourseComponent")
+

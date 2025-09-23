@@ -9,3 +9,7 @@ pydantic
 passlib
 python-jose
 passlib[bcrypt]
+pandas
+python-multipart
+openpyxl
+xlrd

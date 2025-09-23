@@ -13,4 +13,3 @@ class DepSemCourse(Base):
     dep_sem = relationship("DepartmentSem", back_populates="dep_sem_courses")
     course = relationship("Course", back_populates="dep_sem_courses")
     components = relationship("CourseComponent", back_populates="dep_sem_course", cascade="all, delete-orphan")
-    timetable_entries = relationship("Timetable", back_populates="dep_sem_course", cascade="all, delete-orphan")

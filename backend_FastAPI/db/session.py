@@ -2,6 +2,7 @@ import os
 from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
+from fastapi import Depends
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import text
@@ -39,6 +40,7 @@ async def tenant_session(schema_name: str):
         finally:
             await session.close()
 
+
 # Schema and table creation
 async def create_schema_if_not_exists(schema_name: str):
     async with engine.begin() as conn:
@@ -48,4 +50,13 @@ async def create_tables_in_schema(schema_name: str):
     async with engine.begin() as conn:
         await conn.execute(text(f'SET search_path TO "{schema_name}"'))
         await conn.run_sync(Base.metadata.create_all)
+
+async def refresh_schema(schema_name: str):
+    async with AsyncSessionLocal() as session:  # open a real session
+        await session.execute(text(f'DROP SCHEMA IF EXISTS "{schema_name}" CASCADE'))
+        await session.commit()
+
+    await create_schema_if_not_exists(schema_name)
+    await create_tables_in_schema(schema_name)
+
 

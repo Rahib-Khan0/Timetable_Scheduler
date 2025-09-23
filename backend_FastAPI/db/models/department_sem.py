@@ -1,18 +1,14 @@
-import pandas as pd
+from sqlalchemy import Column, Integer, String, JSON
+from sqlalchemy.orm import relationship
+from db.base import Base  # <-- use the shared Base
 
-from db.models import DepartmentSem
+class DepartmentSem(Base):
+    __tablename__ = "department_sem"
 
-async def parse_department_sem(df: pd.DataFrame, session):
-    for _, row in df.iterrows():
-        lecture_prefs = str(row.get("Lecture Room Preference", "")).split(",")
-        lab_prefs = str(row.get("Lab Room Preference", "")).split(",")
 
-        all_prefs = [r.strip() for r in lecture_prefs + lab_prefs if r.strip()]
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    department = Column(String(50), nullable=False)
+    sem = Column(Integer, nullable=False)
+    room_preference = Column(JSON, default={})
 
-        dep_sem = DepartmentSem(
-            department=row['Department'].strip(),
-            semester=int(row['Semester']),
-            room_preferences=all_prefs
-        )
-        session.add(dep_sem)
-    await session.commit()
+    dep_sem_courses = relationship("DepSemCourse", back_populates="dep_sem")

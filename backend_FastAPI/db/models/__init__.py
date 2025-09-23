@@ -9,6 +9,7 @@ from .special_class import SpecialClass
 from .timetable import Timetable
 from .CourseComponent import CourseComponent
 from .user import User
+from .timetable_version import TimetableVersion
 
 __all__ = [
     "Base",
@@ -20,6 +21,7 @@ __all__ = [
     "CourseComponent",
     "SpecialClass",
     "Timetable",
+    "TimetableVersion",
 ]
 
 

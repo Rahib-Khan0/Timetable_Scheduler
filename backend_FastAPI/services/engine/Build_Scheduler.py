@@ -1,6 +1,10 @@
 from ortools.sat.python import cp_model
+from sqlalchemy.ext.asyncio import AsyncSession
 
-def build_scheduler(organized):
+from services.engine.store_solutions_in_DB import store_solution_in_db
+
+
+async def build_scheduler(organized, session : AsyncSession):
     """
     Build and solve timetable using OR-Tools CP-SAT Solver.
     Special classes are pre-assigned and removed from solver variables.
@@ -20,7 +24,7 @@ def build_scheduler(organized):
     special_classes = organized["special_classes_by_dep_sem"]
     dep_sem_by_id = organized["dep_sem_by_id"]
 
-    timetable_fixed = []  # for pre-assigned special classes
+    timetable_fixed = []
 
     # ------------------------------
     # Pre-assign Special Classes
@@ -144,26 +148,41 @@ def build_scheduler(organized):
     # ------------------------------
     # Solve
     # ------------------------------
+
     solver = cp_model.CpSolver()
+    solver.parameters.max_time_in_seconds = 30  # time limit
+    solver.parameters.num_search_workers = 1  # deterministic
+    solver.parameters.random_seed = 42  # reproducible
+
     result = solver.Solve(model)
 
     if result in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-        timetable = timetable_fixed.copy()  # include pre-assigned classes
+        timetable = timetable_fixed.copy()  # include pre-assigned special classes
+
         for (c, d, s, rid), var in x.items():
             if solver.Value(var) == 1:
                 comp = components[c]
-                room = rooms[rid]
                 fcode = comp["faculty_code"]
                 timetable.append({
                     "component_id": c,
                     "course_id": dep_sem_course[comp["dep_sem_course_id"]]["course_id"],
-                    "faculty": faculty[fcode]["name"],
+                    "faculty_code": fcode,
                     "day": d,
                     "slot": s,
-                    "room": room["name"],
+                    "room_id": rid,
                     "type": comp["component_type"],
                     "group": comp["group_no"],
+                    "dep_sem_id": dep_sem_course[comp["dep_sem_course_id"]]["dep_sem_id"]
                 })
-        return {"status": solver.StatusName(result), "timetable": timetable}
-    else:
-        return {"status": solver.StatusName(result)}
+
+        # Store this timetable as one version in DB
+        version_id = await store_solution_in_db(session, timetable, components, faculty, version_name="Auto-generated")
+
+        return {
+            "status": solver.StatusName(result),
+            "version_id": version_id,
+            "timetable": timetable
+        }
+
+    # No feasible solution
+    return {"status": solver.StatusName(result), "timetable": None}

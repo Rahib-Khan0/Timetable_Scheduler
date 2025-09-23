@@ -1,23 +1,21 @@
-
 from services.engine.Build_Scheduler import build_scheduler
 from services.engine.Diagnose_Infeasibility import diagnose_infeasibility
 from services.engine.diagnose_infeasibilty_global import diagnose_infeasibility_global
 from services.engine.organize_data import organize_for_scheduler
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy import select
 from core.depedencies import get_current_user
 from db.session import tenant_session
 from db.models import DepartmentSem
 from services.dataFetcher.raw_data_loader import fetch_raw_data
-
-
+from services.engine.pretty_print import get_pretty_timetable
 
 router = APIRouter(
     prefix="/api",
     tags=["API"]
 )
 
-router = APIRouter()
+
 
 @router.get("/raw-data")
 async def get_raw_data(
@@ -97,7 +95,7 @@ async def get_timetable_data_dummy(current_user=Depends(get_current_user)):
             return {"status": "unsolvable", "reasons": issues}
 
         # Try to build timetable
-        timetable = build_scheduler(org_data)
+        timetable = await build_scheduler(org_data, session)
         if timetable["status"] == "INFEASIBLE":
             return {
                 "status": "infeasible",
@@ -107,3 +105,13 @@ async def get_timetable_data_dummy(current_user=Depends(get_current_user)):
         return {"status": "solved", "timetable": timetable}
 
 
+
+@router.get("/pretty_result")
+async def get_pretty_result(
+    version_id: int = Query(..., description="Timetable version ID to fetch"),
+    current_user=Depends(get_current_user)
+):
+    # ✅ Get tenant session for current institute
+    async with tenant_session(current_user["institute_code"]) as session:
+        result = await get_pretty_timetable(version_id, session)
+        return result

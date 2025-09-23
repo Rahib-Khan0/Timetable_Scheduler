@@ -1,3 +1,5 @@
+import pandas as pd
+
 from db.models import Faculty
 import json
 
@@ -13,11 +15,11 @@ async def parse_faculty(df: pd.DataFrame, session):
                 availability[day] = [int(x) for x in slots.split(',') if x.strip().isdigit()]
 
         faculty = Faculty(
-            code=row['Faculty Code'].strip(),
+            faculty_code=row['Faculty Code'].strip(),
             name=row['Faculty Name'].strip(),
             max_per_week=int(row['Max Per Week']),
             max_per_day=int(row['Max Per Day']),
-            availability=json.dumps(availability)
+            availability=availability
         )
         session.add(faculty)
     await session.commit()
